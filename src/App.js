@@ -1,46 +1,26 @@
 import logo from './logo.svg';
-import { useState } from 'react'
-import {BrowserRouter as Router,Switch, Route} from 'react-router-dom'
+import './Styles/utilities.css';
 import Navigation from './Components/Navigation'
 import Banner from './Components/Banner'
-import Todolist from './Components/Todolist';
-import Form from './Components/Form';
-import './App.css';
-// import './FormStyle.css'
+import Copyright from './Components/Copyright'
+import Tasks from './Components/Tasks'
+import Form from './Components/Form'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 function App() {
-  const [ tasks, setTasks] = useState([
-    {
-        id:1,
-        name:'Regina Filange',
-        message:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga maxime provident architecto voluptatibus officiis consequuntur repellendus laborum dolorum facere?'
-    },
-    {
-        id:2,
-        name:'Ross Geller',
-        message:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga maxime provident architecto voluptatibus officiis consequuntur repellendus laborum dolorum facere?'
-    },
-    {
-        id:3,
-        name:'Rachel Green',
-        message:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga maxime provident architecto voluptatibus officiis consequuntur repellendus laborum dolorum facere?'
-    }   
-])
   return (
     <Router>
     <>
-      <Navigation />
-        <Banner />
-        <Todolist tasks={tasks}/>
+      <Navigation/>
       <Switch>
-      <Route path="/form" component={Form}></Route>
-      {/* <Form /> */}
+      <Route path="/" exact component={Banner} />
+      <Route path="/tasks" component={Tasks}/>
+      <Route path="/form" component={Form}/>
       </Switch>
+      <Copyright/>
     </>
     </Router>
   );
 }
-
-
 
 export default App;
