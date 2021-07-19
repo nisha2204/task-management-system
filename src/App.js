@@ -5,10 +5,15 @@ import Banner from './Components/Banner'
 import Copyright from './Components/Copyright'
 import Tasks from './Components/Tasks'
 import Form from './Components/Form'
+//import ApolloClient from 'apollo-boost';
+//import { ApolloProvider } from 'react-apollo';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+
+
 
 function App() {
   return (
+    
     <Router>
     <>
       <Navigation/>
@@ -20,6 +25,7 @@ function App() {
       <Copyright/>
     </>
     </Router>
+    
   );
 }
 

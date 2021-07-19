@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
 
 ReactDOM.render(
+  <ApolloProvider client={client}>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
