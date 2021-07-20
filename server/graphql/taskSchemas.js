@@ -1,6 +1,7 @@
 var GraphQLSchema = require('graphql').GraphQLSchema;
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLList = require('graphql').GraphQLList;
+var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLString = require('graphql').GraphQLString;
 var GraphQLDate = require('graphql-date');
@@ -100,10 +101,53 @@ var task = new GraphQLObjectType({
             }
             return newTask
           }
+        },
+        updateTask: {
+          type: task,
+          args: {
+            id: {
+              name: 'id',
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            Name: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            domain: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+           task: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            description: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+           deadline: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+          },
+          resolve(root, params) {
+            return TaskModel.findByIdAndUpdate(params.id, { Name: params.Name, domain: params.domain, task: params.task, description: params.description, deadline: params.deadline }, function (err) {
+              if (err) return next(err);
+            });
+          }
+        },
+        removeTask: {
+          type: task,
+          args: {
+            id: {
+              type: new GraphQLNonNull(GraphQLString)
+            }
+          },
+          resolve(root, params) {
+            const remTask = TaskModel.findByIdAndRemove(params.id).exec();
+            if (!remTask) {
+              throw new Error('Error')
+            }
+            return remTask;
+          }
         }
       }
-
     }
   });
 
-  module.exports = new GraphQLSchema({query: queryType, mutation: mutation});
+  module.exports = new GraphQLSchema({query: queryType,mutation: mutation});

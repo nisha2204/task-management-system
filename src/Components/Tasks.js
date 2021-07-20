@@ -1,9 +1,10 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+//import './App.css';
+import gql from 'graphql-tag';
+import { Query, Mutation } from 'react-apollo';
 import Flag from '../Assets/flag.png'
 import '../Styles/tasks.css'
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 
 const GET_TASKS = gql`
   {
@@ -14,6 +15,14 @@ const GET_TASKS = gql`
       task
       description
       deadline
+    }
+  }
+`;
+
+const DELETE_TASK = gql`
+  mutation removeTask($id: String!) {
+    removeTask(id:$id) {
+      _id
     }
   }
 `;
@@ -65,7 +74,7 @@ const Tasks = () => {
                     <h5 className="tagline" style={{color:`${col}`,backgroundColor:`${col}33`, width:`${len(task.task)}`}}>{task.task}</h5>
                     <div className="options">
               <div className="edit">
-                <svg
+              <Link to={`/edit/${task._id}`} className="btn btn-success"> <svg
                   className="editOption"
                   width="24"
                   height="24"
@@ -84,7 +93,8 @@ const Tasks = () => {
                       <rect width="24" height="24" fill="white" />
                     </clipPath>
                   </defs>
-                </svg>
+                </svg></Link>&nbsp;
+                
               </div>
               <div className="completed">
                 <svg
@@ -103,20 +113,27 @@ const Tasks = () => {
                 </svg>
               </div>
               <div className="delete">
-                <svg
-                onClick = {deleteTask}
-                  className="deleteOption"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM16.151 17.943L12.008 13.841L7.891 18L6.058 16.167L10.162 12.01L6 7.891L7.833 6.058L11.988 10.16L16.094 6L17.943 7.849L13.843 11.99L18 16.094L16.151 17.943Z"
-                    fill="#FF3A3A"
-                  />
-                </svg>
+              <Mutation mutation={DELETE_TASK} key={task._id} >
+                                    {(removeTask, { loading, error }) => (
+                                        <div>
+                                            <form
+                                                onSubmit={e => {
+                                                    e.preventDefault();
+                                                    removeTask({ variables: { id: task._id } });
+                                                }}>
+                                                <button image url="http://www.w3.org/2000/svg" type="submit"><svg className="deleteOption"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM16.151 17.943L12.008 13.841L7.891 18L6.058 16.167L10.162 12.01L6 7.891L7.833 6.058L11.988 10.16L16.094 6L17.943 7.849L13.843 11.99L18 16.094L16.151 17.943Z" fill="#FF3A3A"/>
+                </svg></button>
+                                            </form>
+                                        
+                                        </div>
+                                    )}
+                                </Mutation>
+                
               </div>
             </div>
                   </div>
