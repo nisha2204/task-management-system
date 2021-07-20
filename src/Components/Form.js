@@ -72,7 +72,7 @@ class Create extends Component {
           />
         </div>
         
-        <button style={{textDecoration: 'none'}} type="submit" className="btn">Assign Task</button>
+        <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">Assign Task</button>
       </form>
       
       {loading && <p>Loading...</p>}
