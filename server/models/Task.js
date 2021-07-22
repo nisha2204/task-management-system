@@ -7,6 +7,7 @@ var TaskSchema = new mongoose.Schema({
   task: String,
   description: String,
   deadline: String,
+  isComplete:Boolean,
   //updated_date: { type: Date, default: Date.now },
 });
 

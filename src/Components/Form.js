@@ -11,13 +11,15 @@ const ADD_TASK = gql`
         $domain: String!,
         $task: String!,
         $description: String!,
-        $deadline: String!,) {
+        $deadline: String!,
+        $isComplete:Boolean!,) {
         addTask(
             Name: $Name,
             domain: $domain,
             task: $task,
             description: $description,
             deadline: $deadline,
+            isComplete:$isComplete
            ) {
             _id
         }
@@ -34,7 +36,7 @@ class Create extends Component {
       <h4 className="heading">Assing Task</h4>
       <form className="form" onSubmit={e => {
                                 e.preventDefault();
-                                addTask({ variables: {Name: Name.value, domain: domain.value, task: task.value, description: description.value, deadline: deadline.value } });
+                                addTask({ variables: {Name: Name.value, domain: domain.value, task: task.value, description: description.value, deadline: deadline.value, isComplete:false } });
                                 Name.value = "";
                                 domain.value = "";
                                 task.value = "";
@@ -67,7 +69,7 @@ class Create extends Component {
             id="deadline"
             type="text"
             ref={node => {deadline = node;}}
-            placeholder="Deadline"
+            placeholder="yyyy-mm-dd"
             required
           />
         </div>

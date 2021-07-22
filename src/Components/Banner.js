@@ -20,10 +20,14 @@ const Banner = () => {
           Good planning will lead to better work, Plan work, keep projects on
           track, and manage teamwork easily with Task
         </h4>
+        <div className="btn-container">
         <Link style={{textDecoration: 'none'}} to='/form'>
           <h4 className="btn">Create Task</h4>
         </Link>
-      </div>
+        <Link style={{textDecoration: 'none'}} to='/teamform'>
+          <h4 className="btn">Create Team</h4>
+        </Link>
+      </div></div>
     </div>
     )
 }

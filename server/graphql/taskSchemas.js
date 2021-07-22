@@ -1,9 +1,12 @@
 var GraphQLSchema = require('graphql').GraphQLSchema;
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLList = require('graphql').GraphQLList;
+var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
+var GraphQLScalar = require('graphql').GraphQLNonNull;
 var GraphQLString = require('graphql').GraphQLString;
 var GraphQLDate = require('graphql-date');
+var GraphQLBoolean = require('graphql').GraphQLBoolean;
 var TaskModel = require('../models/Task');
 
 var task = new GraphQLObjectType({
@@ -27,6 +30,9 @@ var task = new GraphQLObjectType({
         },
         deadline: {
           type: GraphQLString
+        },
+        isComplete:{
+          type:GraphQLBoolean
         }
         //updated_date: {
           //type: GraphQLDate
@@ -42,7 +48,7 @@ var task = new GraphQLObjectType({
         tasks: {
           type: new GraphQLList(task),
           resolve: function () {
-            const tasks = TaskModel.find().exec()
+            const tasks = TaskModel.find().sort({deadline:1}).exec()
             if (!tasks) {
               throw new Error('Error')
             }
@@ -91,6 +97,9 @@ var task = new GraphQLObjectType({
             deadline: {
               type: new GraphQLNonNull(GraphQLString)
             },
+            isComplete:{
+              type:new GraphQLNonNull(GraphQLBoolean)
+            },
           },
           resolve: function (root, params) {
             const taskModel = new TaskModel(params);
@@ -100,10 +109,72 @@ var task = new GraphQLObjectType({
             }
             return newTask
           }
+        },
+        updateTask: {
+          type: task,
+          args: {
+            id: {
+              name: 'id',
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            Name: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            domain: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+           task: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            description: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+           deadline: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+           
+          },
+          resolve(root, params) {
+            return TaskModel.findByIdAndUpdate(params.id, { Name: params.Name, domain: params.domain, task: params.task, description: params.description, deadline: params.deadline }, function (err) {
+              if (err) return next(err);
+            });
+          }
+        },
+        removeTask: {
+          type: task,
+          args: {
+            id: {
+              type: new GraphQLNonNull(GraphQLString)
+            }
+          },
+          resolve(root, params) {
+            const remTask = TaskModel.findByIdAndRemove(params.id).exec();
+            if (!remTask) {
+              throw new Error('Error')
+            }
+            return remTask;
+          }
+        },
+        completeTask: {
+          type: task,
+          args: {
+            id: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            isComplete:{
+              type:new GraphQLNonNull(GraphQLBoolean)
+            }
+          },
+          resolve(root, params) {
+            const remTask = TaskModel.findByIdAndUpdate(params.id, {isComplete:true}).exec();
+            if (!remTask) {
+              throw new Error('Error')
+            }
+            return remTask;
+          }
         }
       }
-
     }
   });
 
-  module.exports = new GraphQLSchema({query: queryType, mutation: mutation});
+  module.exports = new GraphQLSchema({query: queryType,mutation: mutation});
