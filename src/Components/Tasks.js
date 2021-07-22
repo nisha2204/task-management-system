@@ -150,7 +150,7 @@ const Tasks = () => {
                                                     e.preventDefault();
                                                     completeTask({ variables: { id: task._id, isComplete:true } });
                                                 }}>
-                                                <button type="submit">{renderAuthButton(task.isComplete)}</button>
+                                                <button type="submit" style={{background:'none',outline:'none',border:'none'}}>{renderAuthButton(task.isComplete)}</button>
                                             </form>
                                         </div>
                                     )}
@@ -165,7 +165,7 @@ const Tasks = () => {
                                                     e.preventDefault();
                                                     removeTask({ variables: { id: task._id } });
                                                 }}>
-                                                <button image url="http://www.w3.org/2000/svg" type="submit"><svg className="deleteOption"
+                                                <button style={{background:'none',outline:'none',border:'none'}}  image url="http://www.w3.org/2000/svg" type="submit"><svg className="deleteOption"
                                                 width="24"
                                                 height="24"
                                                 viewBox="0 0 24 24"
