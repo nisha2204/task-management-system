@@ -89,12 +89,12 @@ body {
   justify-content: space-between;
 }
 
-.tasks .lists .item .top-section .options .completed svg path {
+.tasks .lists .item .top-section .options .completed1 svg  {
   transition: all 0.3s ease-in-out;
-  fill: #bac8df;
+  fill: #808080;
 }
 
-.tasks .lists .item .top-section .options .completed svg .checked {
+.tasks .lists .item .top-section .options .completed2 svg  {
   fill: #6eff3a;
 }
 
