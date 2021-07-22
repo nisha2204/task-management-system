@@ -48,7 +48,7 @@ var task = new GraphQLObjectType({
         tasks: {
           type: new GraphQLList(task),
           resolve: function () {
-            const tasks = TaskModel.find().exec()
+            const tasks = TaskModel.find().sort({deadline:1}).exec()
             if (!tasks) {
               throw new Error('Error')
             }
@@ -132,9 +132,7 @@ var task = new GraphQLObjectType({
            deadline: {
               type: new GraphQLNonNull(GraphQLString)
             },
-            isComplete:{
-              type:new GraphQLNonNull(GraphQLBoolean)
-            },
+           
           },
           resolve(root, params) {
             return TaskModel.findByIdAndUpdate(params.id, { Name: params.Name, domain: params.domain, task: params.task, description: params.description, deadline: params.deadline }, function (err) {

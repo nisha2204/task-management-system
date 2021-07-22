@@ -69,7 +69,7 @@ class Create extends Component {
             id="deadline"
             type="text"
             ref={node => {deadline = node;}}
-            placeholder="Deadline"
+            placeholder="yyyy-mm-dd"
             required
           />
         </div>
