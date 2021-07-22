@@ -3,8 +3,10 @@ var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLList = require('graphql').GraphQLList;
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
+var GraphQLScalar = require('graphql').GraphQLNonNull;
 var GraphQLString = require('graphql').GraphQLString;
 var GraphQLDate = require('graphql-date');
+var GraphQLBoolean = require('graphql').GraphQLBoolean;
 var TaskModel = require('../models/Task');
 
 var task = new GraphQLObjectType({
@@ -28,6 +30,9 @@ var task = new GraphQLObjectType({
         },
         deadline: {
           type: GraphQLString
+        },
+        isComplete:{
+          type:GraphQLBoolean
         }
         //updated_date: {
           //type: GraphQLDate
@@ -92,6 +97,9 @@ var task = new GraphQLObjectType({
             deadline: {
               type: new GraphQLNonNull(GraphQLString)
             },
+            isComplete:{
+              type:new GraphQLNonNull(GraphQLBoolean)
+            },
           },
           resolve: function (root, params) {
             const taskModel = new TaskModel(params);
@@ -124,6 +132,9 @@ var task = new GraphQLObjectType({
            deadline: {
               type: new GraphQLNonNull(GraphQLString)
             },
+            isComplete:{
+              type:new GraphQLNonNull(GraphQLBoolean)
+            },
           },
           resolve(root, params) {
             return TaskModel.findByIdAndUpdate(params.id, { Name: params.Name, domain: params.domain, task: params.task, description: params.description, deadline: params.deadline }, function (err) {
@@ -140,6 +151,24 @@ var task = new GraphQLObjectType({
           },
           resolve(root, params) {
             const remTask = TaskModel.findByIdAndRemove(params.id).exec();
+            if (!remTask) {
+              throw new Error('Error')
+            }
+            return remTask;
+          }
+        },
+        completeTask: {
+          type: task,
+          args: {
+            id: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            isComplete:{
+              type:new GraphQLNonNull(GraphQLBoolean)
+            }
+          },
+          resolve(root, params) {
+            const remTask = TaskModel.findByIdAndUpdate(params.id, {isComplete:true}).exec();
             if (!remTask) {
               throw new Error('Error')
             }
