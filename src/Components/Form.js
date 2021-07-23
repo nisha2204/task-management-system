@@ -11,7 +11,7 @@ const ADD_TASK = gql`
         $domain: String!,
         $task: String!,
         $description: String!,
-        $deadline: String!,
+        $deadline: Date!,
         $isComplete:Boolean!,) {
         addTask(
             Name: $Name,
@@ -41,7 +41,7 @@ class Create extends Component {
                                 domain.value = "";
                                 task.value = "";
                                 description.value = "";
-                                deadline.value = "";
+                                deadline.value = null;
                                
                             }}>
         <div className="row-1">
@@ -67,7 +67,7 @@ class Create extends Component {
         <div className="input-container">
           <input
             id="deadline"
-            type="text"
+            type="date"
             ref={node => {deadline = node;}}
             placeholder="yyyy-mm-dd"
             required

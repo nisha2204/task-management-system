@@ -1,14 +1,15 @@
 var mongoose = require('mongoose');
 
-var TaskSchema = new mongoose.Schema({
+var TtaskSchema = new mongoose.Schema({
+  teamid:String,
   id: String,
   Name: String,
   domain: String,
   task: String,
   description: String,
-  deadline: Date,
+  deadline: String,
   isComplete:Boolean,
   //updated_date: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Task', TaskSchema);
+module.exports = mongoose.model('Ttask', TtaskSchema);
