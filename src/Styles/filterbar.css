@@ -1,0 +1,26 @@
+.filter-container svg {
+  position: absolute;
+  right: 20%;
+  /* margin: 0 auto; */
+}
+
+.filter-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.icon {
+}
+
+.filter {
+  width: 80%;
+  height: 55px;
+  text-align: center;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+}

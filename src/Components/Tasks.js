@@ -111,6 +111,7 @@ const Tasks = () => {
           return (
             <div className="tasks">
             <h2 className="heading">Tasks</h2>
+            <div className="search-bar">{<FilterBar></FilterBar>}</div>
             <div className="lists">
                 {data.tasks.map((task,{col = randomColor()}) => (
                   
