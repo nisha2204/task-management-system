@@ -205,3 +205,5 @@ const Tasks = () => {
 }
 
 export default Tasks
+
+/*style={{background:'none',outline:'none',border:'none'}}*/
