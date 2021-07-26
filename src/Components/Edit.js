@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import '../Styles/form.css'
+import moment from 'moment'
 
 const GET_TASK = gql`
     query task($taskId: String) {
@@ -24,7 +25,7 @@ const UPDATE_TASK = gql`
         $domain: String!,
         $task: String!,
         $description: String!,
-        $deadline: String!,
+        $deadline: Date!,
         ) {
         updateTask(
         id: $id,
@@ -41,6 +42,13 @@ const UPDATE_TASK = gql`
 class Edit extends Component {
 
   render() {
+
+    const scrollHeight = (e)=>{ 
+      const textarea = document.querySelector(
+        ".container .form .input-container textarea")
+          // textarea.style.height = "auto";
+          textarea.style.height = textarea.scrollHeight + "px";
+    } 
     let Name, domain, task, description, deadline;
     return (
         <Query query={GET_TASK} variables={{ taskId: this.props.match.params.id }}>
@@ -49,7 +57,7 @@ class Edit extends Component {
                 if (error) return `Error! ${error.message}`;
         
                 return (
-                    <Mutation mutation={UPDATE_TASK} key={data.task._id} onCompleted={() => this.props.history.push(`/`)}>
+                    <Mutation mutation={UPDATE_TASK} key={data.task._id} onCompleted={() => this.props.history.push(`/tasks`)}>
                         {(updateTask, { loading, error }) => (
                             <div className="container">
                             <h4 className="heading">Assing Task</h4>
@@ -60,37 +68,37 @@ class Edit extends Component {
                                             domain.value = "";
                                             task.value = "";
                                             description.value = "";
-                                            deadline.value = "";
+                                            deadline.value = null;
                                             
                                         }}>
                               <div className="row-1">
                                 <div className="input-container">
                                   <input id="Name" type="text" ref={node => {Name = node;}} placeholder="Name" defaultValue={data.task.Name} required />
                                 </div>
-                                <div className="input-container">
-                                  <input id="domain" type="text" ref={node => {domain = node;}} placeholder="Domain"  defaultValue={data.task.domain} required />
-                                </div>
+                                <div class="input-container" >
+            <select name="Domain" id="domain" ref={node => {domain = node;}} defaultValue={data.task.domain} required>
+              <option value="Website">Website</option>
+              <option value="Android">Android</option>
+              <option value="Multimedia">Multimedia</option>
+              <option value="Flutter">Flutter</option>
+              <option value="Content">Content</option>
+              <option value="Management">Management</option>
+            </select>
+          </div>
                               </div>
                               <div className="input-container">
                                 <input id="task" type="text" ref={node => {task = node;}} placeholder="Task" defaultValue={data.task.task} required />
                               </div>
                               <div className="input-container">
-                                <input
-                                  id="description"
-                                  type="text"
-                                  ref={node => {description = node;}}
-                                  placeholder="Description"
-                                  defaultValue={data.task.description}
-                                  required
-                                />
+                              <textarea onChange = {scrollHeight} placeholder="Description" id="description" ref={node => {description = node;}} defaultValue={data.task.description} required></textarea>
                               </div>
                               <div className="input-container">
                                 <input
                                   id="deadline"
-                                  type="text"
+                                  type="date"
                                   ref={node => {deadline = node;}}
-                                  placeholder="Deadline"
-                                  defaultValue={data.task.deadline}
+                                  //placeholder="Deadline"
+                                  defaultValue="22-09-2013"
                                   required
                                 />
                               </div>

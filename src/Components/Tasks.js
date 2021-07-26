@@ -190,7 +190,7 @@ const Tasks = () => {
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M4 24H2V0H4V24ZM22 2.613C22 2.613 20.379 4.043 18.246 4.043C14.886 4.043 14.81 1.148 10.909 1.148C8.801 1.148 6.834 2.128 6 2.842V14.927C7.184 14.108 8.979 13.246 10.923 13.246C14.607 13.246 15.124 16 18.407 16C20.529 16 22 14.641 22 14.641V2.613V2.613Z" fill="#BAC8DF"/>
 </svg>
-                            <h5 className="date">{moment(task.deadline).format("YYYY MM DD")}</h5>
+                            <h5 className="date">{moment(task.deadline).format("DD-MM-YYYY")}</h5>
                         </div>
                         <div className="profile">
                             <h5 className="name">{task.Name}</h5>

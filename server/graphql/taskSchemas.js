@@ -10,7 +10,8 @@ var GraphQLDate = require('graphql-date');
 var GraphQLBoolean = require('graphql').GraphQLBoolean;
 var TaskModel = require('../models/Task');
 var TeamModel = require('../models/Team');
-var TtaskModel = require('../models/Ttask');
+var MemberModel = require('../models/member');
+
 
 var task = new GraphQLObjectType({
     name: 'task',
@@ -57,6 +58,7 @@ var task = new GraphQLObjectType({
         members: {
           type: GraphQLNumber
         },
+        
         project:{
           type:GraphQLString
         },
@@ -70,8 +72,8 @@ var task = new GraphQLObjectType({
     }
   });
 
-  var teamtask=new GraphQLObjectType({
-    name:'teamtask',
+  /*var member=new GraphQLObjectType({
+    name:'member',
     fields: function(){
       return{
         teamid:{
@@ -83,24 +85,9 @@ var task = new GraphQLObjectType({
         Name: {
           type: GraphQLString
         },
-        domain: {
-          type:GraphQLString
-        },
-        task: {
-          type: GraphQLString
-        },
-        description: {
-          type: GraphQLString
-        },
-        deadline: {
-          type: GraphQLString
-        },
-        isComplete:{
-          type:GraphQLBoolean
-        },
       }
     }
-  });
+  });*/
 
 
   var queryType = new GraphQLObjectType({
@@ -115,6 +102,16 @@ var task = new GraphQLObjectType({
               throw new Error('Error')
             }
             return tasks
+          }
+        },
+        teams: {
+          type: new GraphQLList(team),
+          resolve: function () {
+            const teams = TeamModel.find().exec()
+            if (!teams) {
+              throw new Error('Error')
+            }
+            return teams
           }
         },
         task: {
@@ -235,6 +232,25 @@ var task = new GraphQLObjectType({
             return remTask;
           }
         },
+        /*addMember: {
+          type: member,
+          args: {
+            teamid:{
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            Name: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+          },
+          resolve: function (root, params) {
+            const memberModel = new MemberModel(params);
+            const newMember = memberModel.save();
+            if (!newMember) {
+              throw new Error('Error');
+            }
+            return newMember
+          }
+        },*/
         addTeam: {
           type: team,
           args: {
@@ -261,40 +277,6 @@ var task = new GraphQLObjectType({
               throw new Error('Error');
             }
             return newTeam
-          }
-        },
-        addTtask: {
-          type: teamtask,
-          args: {
-            teamid:{
-              type: new GraphQLNonNull(GraphQLString)
-            },
-            Name: {
-              type: new GraphQLNonNull(GraphQLString)
-            },
-            domain: {
-              type: new GraphQLNonNull(GraphQLString)
-            },
-            task: {
-              type: new GraphQLNonNull(GraphQLString)
-            },
-            description: {
-              type: new GraphQLNonNull(GraphQLString)
-            },
-            deadline: {
-              type: new GraphQLNonNull(GraphQLString)
-            },
-            isComplete:{
-              type:new GraphQLNonNull(GraphQLBoolean)
-            },
-          },
-          resolve: function (root, params) {
-            const ttaskModel = new TtaskModel(params);
-            const newTtask = ttaskModel.save();
-            if (!newTtask) {
-              throw new Error('Error');
-            }
-            return newTtask
           }
         },
 

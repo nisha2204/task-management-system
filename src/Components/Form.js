@@ -37,7 +37,7 @@ class Create extends Component {
     } 
     let Name, domain, task, description,deadline;
       return (
-        <Mutation mutation={ADD_TASK} onCompleted={() => this.props.history.push('/')}>
+        <Mutation mutation={ADD_TASK} onCompleted={() => this.props.history.push('/tasks')}>
             {(addTask, { loading, error }) => (
                 <div className="container">
       <h4 className="heading">Assing Task</h4>
