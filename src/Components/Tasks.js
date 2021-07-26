@@ -117,9 +117,9 @@ const Tasks = () => {
             <div className="lists">
                 {data.tasks.map((task,{col = randomColor()}) => (
                   
-                <div className="item" id={task._id} key={task._id}>
+                <div className="item" id={task._id} key={task._id} data-status ={task.isComplete} >
                   <div className="top-section">
-                    <h5 className="tagline" style={{color:`${col}`,backgroundColor:`${col}33`, width:`${len(task.task)}`}}>{task.task}</h5>
+                    <h5 className="tagline" style={{color:`${col}`,backgroundColor:`${col}22`, width:`${len(task.task)}`}}>{task.task}</h5>
                     <div className="options">
               <div className="edit">
               <Link to={`/edit/${task._id}`} className="btn btn-success"> <svg

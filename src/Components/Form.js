@@ -26,9 +26,16 @@ const ADD_TASK = gql`
     }
 `;
 class Create extends Component {
+
   
-    render() {
-      let Name, domain, task, description,deadline;
+  render() {
+    const scrollHeight = (e)=>{ 
+      const textarea = document.querySelector(
+        ".container .form .input-container textarea")
+          // textarea.style.height = "auto";
+          textarea.style.height = textarea.scrollHeight + "px";
+    } 
+    let Name, domain, task, description,deadline;
       return (
         <Mutation mutation={ADD_TASK} onCompleted={() => this.props.history.push('/')}>
             {(addTask, { loading, error }) => (
@@ -48,21 +55,32 @@ class Create extends Component {
           <div className="input-container">
             <input id="Name" type="text" ref={node => {Name = node;}} placeholder="Name" required />
           </div>
-          <div className="input-container">
-            <input id="domain" type="text" ref={node => {domain = node;}} placeholder="Domain" required />
+          <div class="input-container" >
+            <select name="Domain" id="domain" ref={node => {domain = node;}} required>
+              <option value="Website">Website</option>
+              <option value="Android">Android</option>
+              <option value="Multimedia">Multimedia</option>
+              <option value="Flutter">Flutter</option>
+              <option value="Content">Content</option>
+              <option value="Management">Management</option>
+            </select>
           </div>
+          {/* <div className="input-container">
+            <input id="domain" type="text" ref={node => {domain = node;}} placeholder="Domain" required />
+          </div> */}
         </div>
         <div className="input-container">
           <input id="task" type="text" ref={node => {task = node;}} placeholder="Task" required />
         </div>
         <div className="input-container">
-          <input
+        <textarea onChange = {scrollHeight} placeholder="Description" id="description" ref={node => {description = node;}} required></textarea>
+          {/* <input
             id="description"
             type="text"
             ref={node => {description = node;}}
             placeholder="Description"
             required
-          />
+          /> */}
         </div>
         <div className="input-container">
           <input
