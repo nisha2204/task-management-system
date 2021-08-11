@@ -1,11 +1,17 @@
 var mongoose = require('mongoose');
 
+/*var MemberSchema = new mongoose.Schema({
+  id: String,
+  teamid:String,
+  Name: String
+});*/
+
 var TeamSchema = new mongoose.Schema({
   id: String,
   Name: String,
   members: Number,
+  member:[Object],
   project:String,
-  task:String,
   description: String,
   //updated_date: { type: Date, default: Date.now },
 });

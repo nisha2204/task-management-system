@@ -2,6 +2,7 @@ var GraphQLSchema = require('graphql').GraphQLSchema;
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLList = require('graphql').GraphQLList;
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
+var GraphQLInputObjectType = require('graphql').GraphQLInputObjectType;
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLScalar = require('graphql').GraphQLNonNull;
 var GraphQLString = require('graphql').GraphQLString;
@@ -45,6 +46,28 @@ var task = new GraphQLObjectType({
     }
   });
 
+  var members=new GraphQLObjectType({
+    name:'members',
+    fields: function(){
+      return{
+        Mname: {
+          type: GraphQLString
+        },
+      }
+    }
+  });
+
+  var membersInput=new GraphQLInputObjectType({
+    name:'membersInput',
+    fields: function(){
+      return{
+        Mname: {
+          type: GraphQLString
+        },
+      }
+    }
+  });
+
   var team = new GraphQLObjectType({
     name: 'team',
     fields: function () {
@@ -58,12 +81,11 @@ var task = new GraphQLObjectType({
         members: {
           type: GraphQLNumber
         },
-        
+        member:{
+          type: new GraphQLList(members)
+        },
         project:{
           type:GraphQLString
-        },
-        task: {
-          type: GraphQLString
         },
         description: {
           type: GraphQLString
@@ -112,6 +134,32 @@ var task = new GraphQLObjectType({
               throw new Error('Error')
             }
             return teams
+          }
+        },
+        members1: {
+          type: new GraphQLList(members),
+          resolve: function () {
+            const members1 = MemberModel.find().exec()
+            if (!members1) {
+              throw new Error('Error')
+            }
+            return members1
+          }
+        },
+        members: {
+          type: members,
+          args: {
+            teamId: {
+              name: 'teamid',
+              type: GraphQLString
+            }
+          },
+          resolve: function () {
+            const members = MemberModel.find({where:{teamid:teamId}}).exec()
+            if (!members) {
+              throw new Error('Error')
+            }
+            return members
           }
         },
         task: {
@@ -232,25 +280,6 @@ var task = new GraphQLObjectType({
             return remTask;
           }
         },
-        /*addMember: {
-          type: member,
-          args: {
-            teamid:{
-              type: new GraphQLNonNull(GraphQLString)
-            },
-            Name: {
-              type: new GraphQLNonNull(GraphQLString)
-            },
-          },
-          resolve: function (root, params) {
-            const memberModel = new MemberModel(params);
-            const newMember = memberModel.save();
-            if (!newMember) {
-              throw new Error('Error');
-            }
-            return newMember
-          }
-        },*/
         addTeam: {
           type: team,
           args: {
@@ -260,11 +289,9 @@ var task = new GraphQLObjectType({
             members: {
               type: new GraphQLNonNull(GraphQLNumber)
             },
+            member:{type:new GraphQLList(membersInput)},
             project:{
               type:new GraphQLNonNull(GraphQLString)
-            },
-            task: {
-              type: new GraphQLNonNull(GraphQLString)
             },
             description: {
               type: new GraphQLNonNull(GraphQLString)

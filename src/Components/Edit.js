@@ -98,7 +98,7 @@ class Edit extends Component {
                                   type="date"
                                   ref={node => {deadline = node;}}
                                   //placeholder="Deadline"
-                                  defaultValue="22-09-2013"
+                                  defaultValue={data.task.deadline}
                                   required
                                 />
                               </div>
