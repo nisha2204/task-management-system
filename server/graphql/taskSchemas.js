@@ -6,7 +6,7 @@ var GraphQLInputObjectType = require('graphql').GraphQLInputObjectType;
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLScalar = require('graphql').GraphQLNonNull;
 var GraphQLString = require('graphql').GraphQLString;
-var GraphQLNumber=require('graphql').GraphQLInt;
+var GraphQLInt=require('graphql').GraphQLInt;
 var GraphQLDate = require('graphql-date');
 var GraphQLBoolean = require('graphql').GraphQLBoolean;
 var TaskModel = require('../models/Task');
@@ -79,7 +79,7 @@ var task = new GraphQLObjectType({
           type: GraphQLString
         },
         members: {
-          type: GraphQLNumber
+          type: GraphQLInt
         },
         member:{
           type: new GraphQLList(members)
@@ -287,7 +287,7 @@ var task = new GraphQLObjectType({
               type: new GraphQLNonNull(GraphQLString)
             },
             members: {
-              type: new GraphQLNonNull(GraphQLNumber)
+              type: new GraphQLNonNull(GraphQLInt)
             },
             member:{type:new GraphQLList(membersInput)},
             project:{

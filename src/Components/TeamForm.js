@@ -2,21 +2,21 @@ import React from 'react'
 import '../Styles/team-form.css'
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { Link } from 'react-router-dom';
+//import member from '../../server/models/member';
 
 
 const ADD_TEAM = gql`
     mutation AddTeam(
         $Name: String!,
-        $members: Number!,
+        $members: Int!,
         $project:String!
-        $task: String!,
         $description: String!,
         ) {
         addTeam(
             Name: $Name,
             members:$members
             project: $project,
-            task: $task,
             description: $description,
            ) {
             _id
@@ -93,9 +93,17 @@ const TeamForm = () => {
     {(addTeam, { loading, error }) => (
       <div className="container">
       <h4 className="heading">Create Team</h4>
-      <form className="form">
+      <form className="form" onSubmit={e => {
+                                e.preventDefault();
+                                addTeam({ variables: {Name: Name.value, members: parseInt(members.value), project: project.value, description: description.value } });
+                                Name.value = "";
+                                members.value = "";
+                                
+                                project.value = "";
+                                description.value = ""; 
+                            }}>
         <div className="input-container">
-          <input id="team-name" type="text" placeholder="Team Name" required />
+          <input id="team-name" type="text" ref={node => {Name = node;}} placeholder="Team Name" required />
         </div>
         <div className="row-1">
           <div className="input-container">
@@ -103,6 +111,7 @@ const TeamForm = () => {
               onChange={membersList}
               id="total"
               type="number"
+              ref={node => {members = node;}}
               placeholder="Total Members"
               required
             />
@@ -131,10 +140,10 @@ const TeamForm = () => {
           </div>  */}
         </div>
         <div className="input-container">
-          <input id="task" type="text" placeholder="Task" required />
+          <input id="task" type="text" placeholder="Task" ref={node => {project = node;}} required />
         </div>
         <div className="input-container">
-          <textarea placeholder="Description" id="description"></textarea>
+          <textarea placeholder="Description" ref={node => {description = node;}} id="description"></textarea>
         </div>
          {/* <div className="input-container">
           <input
@@ -145,8 +154,9 @@ const TeamForm = () => {
             required
           />
         </div>  */}
+        <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">Assign Task</button>
       </form>
-      <h4 className="btn">Assign Task</h4>
+      
     </div>
       
 //         <div classNameName="container">
