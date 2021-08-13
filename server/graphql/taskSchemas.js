@@ -306,6 +306,21 @@ var task = new GraphQLObjectType({
             return newTeam
           }
         },
+        removeTeam: {
+          type: team,
+          args: {
+            id: {
+              type: new GraphQLNonNull(GraphQLString)
+            }
+          },
+          resolve(root, params) {
+            const remTeam = TeamModel.findByIdAndRemove(params.id).exec();
+            if (!remTeam) {
+              throw new Error('Error')
+            }
+            return remTeam;
+          }
+        },
 
       }
     }
