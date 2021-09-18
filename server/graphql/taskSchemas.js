@@ -306,6 +306,26 @@ var task = new GraphQLObjectType({
             return newTeam
           }
         },
+        addMember: {
+          type: team,
+          args: {
+            id: {
+              name: 'id',
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            Mname: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+          },
+          resolve: function (root, params) {
+            const memberModel= TeamModel.findByIdAndUpdate(params.id, { $push:{member:{Mname:params.Mname}}},).exec();
+            
+            if (!memberModel) {
+              throw new Error('Error');
+            }
+            return memberModel
+          },
+        },
         removeTeam: {
           type: team,
           args: {
