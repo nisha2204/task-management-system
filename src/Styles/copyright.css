@@ -1,6 +1,7 @@
 .copyright {
   background-color: #e2e3ee;
-  position: relative;
+  position: fixed;
+  bottom: 0;
   width: 100%;
   height: 36px;
   display: -webkit-box;
