@@ -9,6 +9,7 @@ import Edit from './Components/Edit'
 import Teams from './Components/Teams'
 import TeamForm from './Components/TeamForm'
 import TaskInTeam from './Components/TaskInTeam'
+import AddMember  from './Components/AddMember';
 //import ApolloClient from 'apollo-boost';
 //import { ApolloProvider } from 'react-apollo';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
@@ -29,6 +30,7 @@ function App() {
       <Route path="/teams" component={Teams}/>
       <Route path="/teamform" component={TeamForm}/>
       <Route path="/taskinteam" component={TaskInTeam} />
+      <Route path='/addMember/:id' component={AddMember}/>
       </Switch>
       <Copyright/>
     </>

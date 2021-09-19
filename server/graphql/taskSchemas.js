@@ -11,7 +11,7 @@ var GraphQLDate = require('graphql-date');
 var GraphQLBoolean = require('graphql').GraphQLBoolean;
 var TaskModel = require('../models/Task');
 var TeamModel = require('../models/Team');
-var MemberModel = require('../models/member');
+//var MemberModel = require('../models/member');
 
 
 var task = new GraphQLObjectType({
@@ -177,6 +177,22 @@ var task = new GraphQLObjectType({
             }
             return taskDetails
           }
+        },
+        team: {
+          type: team,
+          args: {
+            id: {
+              name: '_id',
+              type: GraphQLString
+            }
+          },
+          resolve: function (root, params) {
+            const teamDetails = TeamModel.findById(params.id).exec()
+            if (!teamDetails) {
+              throw new Error('Error')
+            }
+            return teamDetails
+          }
         }
       }
     }
@@ -307,7 +323,7 @@ var task = new GraphQLObjectType({
           }
         },
         addMember: {
-          type: team,
+          type: members,
           args: {
             id: {
               name: 'id',

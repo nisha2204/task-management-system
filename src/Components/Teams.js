@@ -233,6 +233,29 @@ const Teams = () => {
                           </defs>
                         </svg>
                       </div>
+                      <div className="edit">
+              <Link to={`/addMember/${team._id}`} className="btn btn-success"> <svg
+                  className="editOption"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clipPath="url(#clip0)">
+                    <path
+                      d="M19.769 9.923L7.127 22.562L0 24L1.438 16.872L14.079 4.232L19.769 9.923V9.923ZM21.183 8.509L24 5.689L18.309 0L15.493 2.817L21.183 8.509V8.509Z"
+                      fill="#bac8df"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg></Link>&nbsp;
+                
+              </div>
                       <Mutation mutation={DELETE_TEAM} key={team._id} >
                                     {(removeTeam, { loading, error }) => (
                                         <div>
