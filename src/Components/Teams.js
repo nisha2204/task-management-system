@@ -23,6 +23,7 @@ const GET_TEAMS = gql`
   members,
   member {
     Mname
+    Emailid
   },
   project,
   description 
@@ -292,7 +293,7 @@ const Teams = () => {
                       </div>
                       <div className="info">
                         <h5 className="name">{item.Mname}</h5>
-                        <p className="domain"></p>
+                        <p className="domain">{item.Emailid}</p>
                       </div>
                     </div>
                     ))}

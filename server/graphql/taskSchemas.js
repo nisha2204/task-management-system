@@ -53,6 +53,9 @@ var task = new GraphQLObjectType({
         Mname: {
           type: GraphQLString
         },
+        Emailid:{
+          type: GraphQLString
+        },
       }
     }
   });
@@ -62,6 +65,9 @@ var task = new GraphQLObjectType({
     fields: function(){
       return{
         Mname: {
+          type: GraphQLString
+        },
+        Emailid:{
           type: GraphQLString
         },
       }
@@ -332,9 +338,12 @@ var task = new GraphQLObjectType({
             Mname: {
               type: new GraphQLNonNull(GraphQLString)
             },
+            Emailid: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
           },
           resolve: function (root, params) {
-            const memberModel= TeamModel.findByIdAndUpdate(params.id, { $push:{member:{Mname:params.Mname}}},).exec();
+            const memberModel= TeamModel.findByIdAndUpdate(params.id, { $push:{member:{Mname:params.Mname, Emailid:params.Emailid}}},).exec();
             
             if (!memberModel) {
               throw new Error('Error');

@@ -23,12 +23,15 @@ const ADD_MEMBER = gql`
     mutation addMember(
         $id: String!,
         $Mname: String!,
+        $Emailid:String!
         ) {
         addMember(
         id: $id,
         Mname: $Mname,
+        Emailid:$Emailid
         ) {
             Mname
+            Emailid
         }
     }
 `;
@@ -37,7 +40,7 @@ class AddMember extends Component {
 
   render() {
 
-    let Mname;
+    let Mname, Emailid;
    
         
     return (
@@ -53,14 +56,15 @@ class AddMember extends Component {
                             <h4 className="heading">Add Member</h4>
                             <form className="form" onSubmit={e => {
                                             e.preventDefault();
-                                            addMember({ variables: { id: data.team._id, Mname:Mname.value} });
+                                            addMember({ variables: { id: data.team._id, Mname:Mname.value, Emailid:Emailid.value} });
                                            Mname.value="";
+                                           Emailid.value="";
                                         }}>
-                              <div className="row-1">
-                                <div className="input-container">
-                                  <input id="Mname" type="text"  ref={node => {Mname = node;}} placeholder="Name"  required />
-                                </div>
-                               
+                              <div className="input-container">
+                                <input id="Mname" type="text" ref={node => {Mname = node;}} placeholder="Name"  required />
+                              </div>
+                              <div className="input-container">
+                              <input id="Emailid" type="text" ref={node => {Emailid = node;}} placeholder="Email ID"  required />
                               </div>
                              
                               
