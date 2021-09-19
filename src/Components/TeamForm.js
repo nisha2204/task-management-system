@@ -89,7 +89,7 @@ const TeamForm = () => {
       </form>
       <h4 style={{textDecoration: 'none'}} classNameName="btn">Create a Team</h4>
     </div>*/
-    <Mutation mutation={ADD_TEAM} onCompleted={() => this.props.history.push('/')}>
+    <Mutation mutation={ADD_TEAM} >
     {(addTeam, { loading, error }) => (
       <div className="container">
       <h4 className="heading">Create Team</h4>
@@ -108,7 +108,7 @@ const TeamForm = () => {
         <div className="row-1">
           <div className="input-container">
             <input
-              onChange={membersList}
+              //onChange={membersList}
               id="total"
               type="number"
               ref={node => {members = node;}}

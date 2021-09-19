@@ -366,6 +366,34 @@ var task = new GraphQLObjectType({
             return remTeam;
           }
         },
+        updateTeam: {
+          type: team,
+          args: {
+            id: {
+              name: 'id',
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            Name: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            members: {
+              type: new GraphQLNonNull(GraphQLInt)
+            },
+            member:{type:new GraphQLList(membersInput)},
+            project:{
+              type:new GraphQLNonNull(GraphQLString)
+            },
+            description: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+           
+          },
+          resolve(root, params) {
+            return TeamModel.findByIdAndUpdate(params.id, { Name: params.Name, members: params.members, project: params.project, description: params.description }, function (err) {
+              if (err) return next(err);
+            });
+          }
+        },
 
       }
     }
