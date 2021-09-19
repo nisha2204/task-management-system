@@ -16,7 +16,7 @@ import AddMember  from './Components/AddMember';
 
 
 
-import SingleMember from './Components/SingleMember'
+
 
 //import ApolloClient from 'apollo-boost';
 //import { ApolloProvider } from 'react-apollo';
@@ -43,7 +43,7 @@ function App() {
       <Route path='/addMember/:id' component={AddMember}/>
 
 
-      <Route path="/addMember1" component={SingleMember} />
+      
 
       </Switch>
       <Copyright/>
