@@ -212,49 +212,18 @@ const Teams = () => {
                   <div className="top">
                     <h5 className="project-name" style={{color:`${col}`,backgroundColor:`${col}22`, width:`${len(team.project)}`}}>{team.project}</h5>
                     <div className="options">
+
                       <div className="edit">
-                        <svg
-                          calss="editOption"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g clip-path="url(#clip0)">
-                            <path
-                              d="M19.769 9.923L7.127 22.562L0 24L1.438 16.872L14.079 4.232L19.769 9.923V9.923ZM21.183 8.509L24 5.689L18.309 0L15.493 2.817L21.183 8.509V8.509Z"
-                              fill="#bac8df"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0">
-                              <rect width="24" height="24" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div className="edit">
-              <Link to={`/addMember/${team._id}`} className="btn btn-success"> <svg
-                  className="editOption"
+              <Link to={`/addMember/${team._id}`} className="btn btn-success">
+              <svg className="editOption"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clipPath="url(#clip0)">
-                    <path
-                      d="M19.769 9.923L7.127 22.562L0 24L1.438 16.872L14.079 4.232L19.769 9.923V9.923ZM21.183 8.509L24 5.689L18.309 0L15.493 2.817L21.183 8.509V8.509Z"
-                      fill="#bac8df"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0">
-                      <rect width="24" height="24" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg></Link>&nbsp;
+                  xmlns="http://www.w3.org/2000/svg">
+<path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM18 13H13V18H11V13H6V11H11V6H13V11H18V13Z" fill="#BAC8DF"/>
+</svg>
+</Link>&nbsp;
                 
               </div>
                       <Mutation mutation={DELETE_TEAM} key={team._id} >
