@@ -201,7 +201,7 @@ const Teams = () => {
               <div className="item" >
                 <div className="head">
                   <h4 className="team-name">{team.Name}</h4>
-                  <p className="team-members">Total Members: {team.members}</p>
+                  <p className="team-members">Total Members: {team.member.length}</p>
                 </div>
                 <div className="mid">
                   <div className="top">

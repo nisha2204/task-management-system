@@ -106,22 +106,7 @@ var task = new GraphQLObjectType({
     }
   });
 
-  /*var member=new GraphQLObjectType({
-    name:'member',
-    fields: function(){
-      return{
-        teamid:{
-          type:GraphQLString
-        },
-        _id:{
-          type:GraphQLString
-        },
-        Name: {
-          type: GraphQLString
-        },
-      }
-    }
-  });*/
+  
 
 
   var queryType = new GraphQLObjectType({
@@ -148,32 +133,7 @@ var task = new GraphQLObjectType({
             return teams
           }
         },
-        members1: {
-          type: new GraphQLList(members),
-          resolve: function () {
-            const members1 = MemberModel.find().exec()
-            if (!members1) {
-              throw new Error('Error')
-            }
-            return members1
-          }
-        },
-        members: {
-          type: members,
-          args: {
-            teamId: {
-              name: 'teamid',
-              type: GraphQLString
-            }
-          },
-          resolve: function () {
-            const members = MemberModel.find({where:{teamid:teamId}}).exec()
-            if (!members) {
-              throw new Error('Error')
-            }
-            return members
-          }
-        },
+        
         task: {
           type: task,
           args: {
