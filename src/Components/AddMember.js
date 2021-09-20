@@ -11,7 +11,7 @@ const GET_TEAM = gql`
         team(id: $teamId) {
             _id
             Name
-            members
+            domain
             member{Mname}
             project
             description

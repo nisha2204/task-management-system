@@ -20,7 +20,7 @@ const GET_TEAMS = gql`
   teams{
     _id,
   Name,
-  members,
+  domain,
   member {
     Mname
     Emailid
@@ -34,6 +34,14 @@ const GET_TEAMS = gql`
 const DELETE_TEAM = gql`
   mutation removeTeam($id: String!) {
     removeTeam(id:$id) {
+      _id
+    }
+  }
+`;
+
+const DELETE_MEMBER = gql`
+  mutation removeMember($id: String!, $Emailid: String!) {
+    removeMember(id:$id, Emailid:$Emailid) {
       _id
     }
   }
@@ -177,20 +185,7 @@ const Teams = () => {
         console.log(e)
       }
 
-      // const showTask = (e) => {
-      //     console.log(e)
-      //   console.log(e.target.id)
-      //   const id = e.target.id
-      //   const list = document.getElementById(`${id}`)
-      //   if (list.getAttribute('style') == 'display: flex;') {
-      //       list.setAttribute('style','display: none;') 
-      //   }
-      //   else {
-      //       list.setAttribute('style','display: flex;') 
-      //   }
-      //   console.log(list.getAttribute('style'))
-      // }
-
+      
       
     return (
     <Query pollInterval={500} query={GET_TEAMS}>
@@ -287,6 +282,26 @@ const Teams = () => {
                         <h5 className="name">{item.Mname}</h5>
                         <p className="domain">{item.Emailid}</p>
                       </div>
+                      <Mutation mutation={DELETE_MEMBER} key={team._id} >
+                                    {(removeMember, { loading, error }) => (
+                                        <div>
+                                            <form
+                                                onSubmit={e => {
+                                                    e.preventDefault();
+                                                    removeMember({ variables: { id: team._id, Emailid: item.Emailid } });
+                                                }}>
+                                                <button style={{background:'none',outline:'none',border:'none'}}  image url="http://www.w3.org/2000/svg" type="submit"><svg className="deleteOption"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM16.151 17.943L12.008 13.841L7.891 18L6.058 16.167L10.162 12.01L6 7.891L7.833 6.058L11.988 10.16L16.094 6L17.943 7.849L13.843 11.99L18 16.094L16.151 17.943Z" fill="#FF3A3A"/>
+                </svg></button>
+                                            </form>
+                                        
+                                        </div>
+                                    )}
+                                </Mutation>
                     </div>
                     ))}
                   </div>
@@ -302,6 +317,3 @@ const Teams = () => {
 }
 
 export default Teams
-
-
-

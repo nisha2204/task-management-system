@@ -50,6 +50,9 @@ var task = new GraphQLObjectType({
     name:'members',
     fields: function(){
       return{
+        _id: {
+          type: GraphQLString
+        },
         Mname: {
           type: GraphQLString
         },
@@ -64,6 +67,9 @@ var task = new GraphQLObjectType({
     name:'membersInput',
     fields: function(){
       return{
+        _id: {
+          type: GraphQLString
+        },
         Mname: {
           type: GraphQLString
         },
@@ -84,8 +90,8 @@ var task = new GraphQLObjectType({
         Name: {
           type: GraphQLString
         },
-        members: {
-          type: GraphQLInt
+        domain: {
+          type: GraphQLString
         },
         member:{
           type: new GraphQLList(members)
@@ -308,8 +314,8 @@ var task = new GraphQLObjectType({
             Name: {
               type: new GraphQLNonNull(GraphQLString)
             },
-            members: {
-              type: new GraphQLNonNull(GraphQLInt)
+            domain: {
+              type: new GraphQLNonNull(GraphQLString)
             },
             member:{type:new GraphQLList(membersInput)},
             project:{
@@ -366,6 +372,27 @@ var task = new GraphQLObjectType({
             return remTeam;
           }
         },
+        removeMember: {
+          type: members,
+          args: {
+            id: {
+              name: 'id',
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            
+            Emailid: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+          },
+          resolve: function (root, params) {
+            const memberModel1= TeamModel.findByIdAndUpdate(params.id, { $pull:{member:{Emailid:params.Emailid}}},).exec();
+            
+            if (!memberModel1) {
+              throw new Error('Error');
+            }
+            return memberModel1
+          },
+        },
         updateTeam: {
           type: team,
           args: {
@@ -376,8 +403,8 @@ var task = new GraphQLObjectType({
             Name: {
               type: new GraphQLNonNull(GraphQLString)
             },
-            members: {
-              type: new GraphQLNonNull(GraphQLInt)
+            domain: {
+              type: new GraphQLNonNull(GraphQLString)
             },
             member:{type:new GraphQLList(membersInput)},
             project:{
@@ -389,7 +416,7 @@ var task = new GraphQLObjectType({
            
           },
           resolve(root, params) {
-            return TeamModel.findByIdAndUpdate(params.id, { Name: params.Name, members: params.members, project: params.project, description: params.description }, function (err) {
+            return TeamModel.findByIdAndUpdate(params.id, { Name: params.Name, domain: params.domain, project: params.project, description: params.description }, function (err) {
               if (err) return next(err);
             });
           }

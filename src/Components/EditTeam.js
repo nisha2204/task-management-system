@@ -10,7 +10,7 @@ const GET_TEAM = gql`
         team(id: $teamId) {
             _id
             Name
-            members
+            domain
             member{Mname}
             project
             description
@@ -22,7 +22,7 @@ const UPDATE_TEAM = gql`
     mutation updateTeam(
         $id: String!,
         $Name: String!,
-        $members:Int!
+        $domain:String!
         $project: String!,
         $description: String!,
         
@@ -30,7 +30,7 @@ const UPDATE_TEAM = gql`
         updateTeam(
         id: $id,
         Name: $Name,
-        members:$members,
+        domain:$domain,
         project: $project,
         description: $description,
         ) {
@@ -60,31 +60,21 @@ class EditTeam extends Component {
                     <Mutation mutation={UPDATE_TEAM} key={data.team._id} onCompleted={() => this.props.history.push(`/teams`)}>
                         {(updateTeam, { loading, error }) => (
                             <div className="container">
-                            <h4 className="heading">Assing Task</h4>
+                            <h4 className="heading">Update Team</h4>
                             <form className="form" onSubmit={e => {
                                             e.preventDefault();
-                                            updateTeam({ variables: { id: data.team._id, Name: Name.value, members: parseInt(members.value), project: project.value, description: description.value} });
+                                            updateTeam({ variables: { id: data.team._id, Name: Name.value, domain:domain.value, project: project.value, description: description.value} });
                                             Name.value = "";
-                                            members.value = "";
+                                            domain.value = "";
                                             project.value = "";
                                             description.value = ""; 
                                             
                                         }}>
-                                            <div className="input-container">
+                                            
+          <div className="row-1">
+          <div className="input-container">
           <input id="team-name" type="text" ref={node => {Name = node;}} defaultValue={data.team.Name} placeholder="Team Name" required />
         </div>
-                              <div className="row-1">
-          <div className="input-container">
-            <input
-              //onChange={membersList}
-              id="total"
-              type="number"
-              ref={node => {members = node;}}
-              defaultValue={data.team.members}
-              placeholder="Total Members"
-              required
-            />
-          </div>
           <div className="input-container">
              {/* <input id="domain" type="text" placeholder="Domain" required />  */}
             <select name="Domain" id="domain" ref={node => {domain = node;}} defaultValue={data.team.domain} required>
@@ -105,7 +95,7 @@ class EditTeam extends Component {
                               </div>
                               
                               
-                              <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">Assign Task</button>
+                              <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">Update Team</button>
                             </form>
                             
                             {loading && <p>Loading...</p>}

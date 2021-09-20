@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var TeamSchema = new mongoose.Schema({
   id: String,
   Name: String,
-  members: Number,
+  domain: String,
   member:[Object],
   project:String,
   description: String,
