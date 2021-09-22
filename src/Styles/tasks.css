@@ -11,9 +11,9 @@ body {
   top: 20%;
   width: 93.75%;
   min-height: 90vh;
-  margin: 5rem auto 0 auto;
+  margin: 5rem auto;
   background: linear-gradient(45deg, #e5e5e5, rgba(226, 227, 238, 0.2));
-  border-radius: 50px 50px 0 0;
+  border-radius: 50px;
   border: 1px solid #e2e3ee;
   padding: 4rem 2rem;
   backdrop-filter: blur(30px);
@@ -89,12 +89,12 @@ body {
   justify-content: space-between;
 }
 
-.tasks .lists .item .top-section .options .completed1 svg  {
+.tasks .lists .item .top-section .options .completed1 svg {
   transition: all 0.3s ease-in-out;
   fill: #bac8df;
 }
 
-.tasks .lists .item .top-section .options .completed2 svg  {
+.tasks .lists .item .top-section .options .completed2 svg {
   fill: #6eff3a;
 }
 

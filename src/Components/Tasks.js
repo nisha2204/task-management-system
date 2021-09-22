@@ -46,7 +46,7 @@ const Tasks = () => {
   
   
     function randomColor(){
-      const colors = ['#e5a7e1','#a7d6e5','#cae5a7','#e5dfA7']
+      const colors = ['#E78BE1','#8DD1E7','#BDE787','#E7DD86']
         return colors[Math.floor(Math.random() * colors.length)]
       }
       
