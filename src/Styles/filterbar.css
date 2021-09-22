@@ -16,8 +16,9 @@
 
 .filter-container .search-bar {
   position: relative;
-  width: 70%;
+  width: 100%;
   height: 100%;
+  margin: 0 2rem 0 0;
 }
 
 .filter-container .search-bar input {
@@ -41,9 +42,9 @@
 }
 
 .filter-container select {
+  margin: 0 4rem 0 0;
   position: relative;
-  width: 100%;
-  min-width: 400px;
+  width: 300px;
   min-height: 55px;
   height: 100%;
   outline: none;
@@ -63,4 +64,22 @@
   padding: 0 1rem;
   background-color: #fff;
   color: #000;
+}
+
+@media screen and (max-width: 850px) {
+  .filter-container {
+    margin: 0;
+  }
+  .filter-container .search-bar {
+    max-width: 40%;
+    margin: 0;
+  }
+  .filter-container .filter-options {
+    width: 40%;
+  }
+  .filter-container select {
+    margin: 0;
+    min-width: 100%;
+    width: 40%;
+  }
 }

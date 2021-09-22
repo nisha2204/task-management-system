@@ -5,18 +5,14 @@ const FilterBar = () => {
 
     const handleChange = (e) =>{
         const userInput = e.target.value.toUpperCase()
-        // console.log(e)
         const tasks = e.nativeEvent.path[4]
-        // console.log(tasks.querySelector('.lists'))
         const lists = tasks.querySelector('.lists')
         const items = lists.querySelectorAll('.item')
-        // console.log(items)
         items.forEach((item) => {
             const tagline = item.querySelector('.top-section .tagline').innerHTML.toUpperCase()
             const deadline = item.querySelector('.bottom-section .duration .date').innerHTML.toUpperCase()
             const name = item.querySelector('.bottom-section .profile .name').innerHTML.toUpperCase()
             const domain = item.querySelector('.bottom-section .profile .domain').innerHTML.toUpperCase()
-            // console.log(deadline,tagline,name,domain)
 
             if(tagline.indexOf(userInput) > -1 || deadline.indexOf(userInput) > -1 || name.indexOf(userInput) > -1 ||domain.indexOf(userInput) > -1){
                 item.style.display = "flex"
@@ -30,25 +26,22 @@ const FilterBar = () => {
     const filter = (e) => {
         const select = document.querySelector('#filter')
         const userValue = select.value
-        // console.log(select.value)
         const tasks = e.nativeEvent.path[4]
-        // console.log(tasks.querySelector('.lists'))
         const lists = tasks.querySelector('.lists')
         const items = lists.querySelectorAll('.item')
-        // console.log(items)
         items.forEach((item) => {
             item.style.display = 'none'
-            if(userValue == 'Completed'){
+            if(userValue === 'Completed'){
                 items.forEach(item => {
-                    if (item.getAttribute('data-status') == 'true'){
+                    if (item.getAttribute('data-status') === 'true'){
                         item.style.display = 'flex'
                     }
                 })
             }
 
-            else if(userValue == 'Pending'){
+            else if(userValue === 'Pending'){
                 items.forEach(item => {
-                    if (item.getAttribute('data-status') == 'false'){
+                    if (item.getAttribute('data-status') === 'false'){
                         item.style.display = 'flex'
                     }
                 })

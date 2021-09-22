@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './Styles/utilities.css';
 import Navigation from './Components/Navigation'
 import Banner from './Components/Banner'
