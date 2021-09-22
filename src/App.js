@@ -7,10 +7,7 @@ import Form from './Components/Form'
 import Edit from './Components/Edit'
 import Teams from './Components/Teams'
 import TeamForm from './Components/TeamForm'
-import TaskInTeam from './Components/TaskInTeam'
 import EditTeam from './Components/EditTeam';
-
-
 import AddMember  from './Components/AddMember';
 
 
@@ -37,7 +34,6 @@ function App() {
       <Route path='/edit/:id' component={Edit}/>
       <Route path="/teams" component={Teams}/>
       <Route path="/teamform" component={TeamForm}/>
-      <Route path="/taskinteam" component={TaskInTeam} />
       <Route path='/editTeam/:id' component={EditTeam}/>
 
 

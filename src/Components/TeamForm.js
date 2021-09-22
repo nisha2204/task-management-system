@@ -1,5 +1,5 @@
-import React from 'react'
 import '../Styles/team-form.css'
+import React, { Component } from 'react';
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
@@ -22,12 +22,13 @@ const ADD_TEAM = gql`
     }
 `;
 
-const TeamForm = () => {
+class TeamForm extends Component  {
+  render(){
   let Name, domain, project, description;
 
     return (
       
-    <Mutation mutation={ADD_TEAM} >
+    <Mutation mutation={ADD_TEAM} onCompleted={() => this.props.history.push('/teams')} >
     {(addTeam, { loading, error }) => (
       <div className="container">
       <h4 className="heading">Create Team</h4>
@@ -39,7 +40,6 @@ const TeamForm = () => {
                                 project.value = "";
                                 description.value = ""; 
                             }}>
-        
         <div className="row-1">
         <div className="input-container">
           <input id="team-name" type="text" ref={node => {Name = node;}} placeholder="Team Name" required />
@@ -55,15 +55,12 @@ const TeamForm = () => {
             </select>
           </div>
         </div>
-
-        
         <div className="input-container">
           <input id="task" type="text" placeholder="Project Name" ref={node => {project = node;}} required />
         </div>
         <div className="input-container">
           <textarea placeholder="Description" ref={node => {description = node;}} id="description"></textarea>
         </div>
-    
         <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">Create Team</button>
       </form>
       
@@ -74,5 +71,6 @@ const TeamForm = () => {
 </Mutation>
     )
 }
+}
 
-export default TeamForm
+export default TeamForm;

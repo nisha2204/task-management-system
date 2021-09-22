@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import '../Styles/form.css'
 
-
+//query to get the team data with particualr id
 const GET_TEAM = gql`
     query team($teamId: String) {
         team(id: $teamId) {
@@ -17,6 +17,8 @@ const GET_TEAM = gql`
     }
 `;
 
+
+// mutation to add member provided name and emailid
 const ADD_MEMBER = gql`
     mutation addMember(
         $id: String!,
@@ -37,16 +39,13 @@ const ADD_MEMBER = gql`
 class AddMember extends Component {
 
   render() {
-
-    let Mname, Emailid;
-   
-        
+    
+    let Mname, Emailid;   
     return (
         <Query query={GET_TEAM} variables={{ teamId: this.props.match.params.id }}>
             {({ loading, error, data }) => {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;
-        
                 return (
                     <Mutation mutation={ADD_MEMBER} key={data.team._id} onCompleted={() => this.props.history.push(`/teams`)} >
                         {(addMember, { loading, error }) => (
@@ -55,8 +54,8 @@ class AddMember extends Component {
                             <form className="form" onSubmit={e => {
                                             e.preventDefault();
                                             addMember({ variables: { id: data.team._id, Mname:Mname.value, Emailid:Emailid.value} });
-                                           Mname.value="";
-                                           Emailid.value="";
+                                            Mname.value="";
+                                            Emailid.value="";
                                         }}>
                               <div className="input-container">
                                 <input id="Mname" type="text" ref={node => {Mname = node;}} placeholder="Name"  required />
@@ -64,10 +63,6 @@ class AddMember extends Component {
                               <div className="input-container">
                               <input id="Emailid" type="text" ref={node => {Emailid = node;}} placeholder="Email ID"  required />
                               </div>
-                             
-                              
-                             
-                              
                               <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">ADD MEMBER</button>
                             </form>
                             
@@ -80,10 +75,7 @@ class AddMember extends Component {
             }}
         </Query>
     );
-            }}
-        
-  
+}}
 
 export default AddMember;
 
-// member:{Mname:Mname.value}

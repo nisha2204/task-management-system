@@ -74,15 +74,15 @@ class Edit extends Component {
                                   <input id="Name" type="text" ref={node => {Name = node;}} placeholder="Name" defaultValue={data.task.Name} required />
                                 </div>
                                 <div class="input-container" >
-            <select name="Domain" id="domain" ref={node => {domain = node;}} defaultValue={data.task.domain} required>
-              <option value="Website">Website</option>
-              <option value="Android">Android</option>
-              <option value="Multimedia">Multimedia</option>
-              <option value="Flutter">Flutter</option>
-              <option value="Content">Content</option>
-              <option value="Management">Management</option>
-            </select>
-          </div>
+                                <select name="Domain" id="domain" ref={node => {domain = node;}} defaultValue={data.task.domain} required>
+                                <option value="Website">Website</option>
+                                <option value="Android">Android</option>
+                                <option value="Multimedia">Multimedia</option>
+                                <option value="Flutter">Flutter</option>
+                                <option value="Content">Content</option>
+                                <option value="Management">Management</option>
+                                </select>
+                                </div>
                               </div>
                               <div className="input-container">
                                 <input id="task" type="text" ref={node => {task = node;}} placeholder="Task" defaultValue={data.task.task} required />
@@ -91,16 +91,8 @@ class Edit extends Component {
                               <textarea onChange = {scrollHeight} placeholder="Description" id="description" ref={node => {description = node;}} defaultValue={data.task.description} required></textarea>
                               </div>
                               <div className="input-container">
-                                <input
-                                  id="deadline"
-                                  type="date"
-                                  ref={node => {deadline = node;}}
-                                  //placeholder="Deadline"
-                                  defaultValue={data.task.deadline}
-                                  required
-                                />
+                                <input id="deadline" type="date" ref={node => {deadline = node;}} defaultValue={data.task.deadline} required/>
                               </div>
-                              
                               <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">Assign Task</button>
                             </form>
                             
