@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import '../Styles/form.css'
-import moment from 'moment'
 
 
 const GET_TEAM = gql`

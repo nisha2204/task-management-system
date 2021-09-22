@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import '../Styles/form.css'
-import moment from 'moment'
 
 const GET_TEAM = gql`
     query team($teamId: String) {
@@ -49,7 +47,7 @@ class EditTeam extends Component {
           // textarea.style.height = "auto";
           textarea.style.height = textarea.scrollHeight + "px";
     } 
-    let Name, domain, members, project, description;
+    let Name, domain, project, description;
     return (
         <Query query={GET_TEAM} variables={{ teamId: this.props.match.params.id }}>
             {({ loading, error, data }) => {

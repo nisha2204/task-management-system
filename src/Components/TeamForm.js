@@ -2,8 +2,6 @@ import React from 'react'
 import '../Styles/team-form.css'
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
-import { Link } from 'react-router-dom';
-//import member from '../../server/models/member';
 
 
 const ADD_TEAM = gql`
@@ -25,35 +23,8 @@ const ADD_TEAM = gql`
 `;
 
 const TeamForm = () => {
-  let Name, domain, project, task, description;
-  const membersList = (e) => {
-    const totalMembers = document.getElementById('total')
-    const row = document.querySelector('.container .form .row-2')
-    // console.log(row)
+  let Name, domain, project, description;
 
-    totalMembers.addEventListener('input', ()=>{
-    let members = parseInt(totalMembers.value)
-    console.log(typeof(members))
-    for(let j = 0; j< members; j++){
-        const member = document.createElement("div")
-        member.classList.add("member-field");
-        member.innerHTML = `
-        <div class="number">
-        <h5 class="count">${j+1}</h5>
-        </div>
-        <div class="input-container">
-        <input class="name" id="member-${j+1}" type="text" placeholder="Member-${j+1}" required />
-        </div>
-        `
-        
-        row.appendChild(member)
-    }
-    if(members == ""){
-        row.innerHTML = ``
-        // console.log(123)
-    }
-})
-  }
     return (
       
     <Mutation mutation={ADD_TEAM} >
@@ -74,7 +45,6 @@ const TeamForm = () => {
           <input id="team-name" type="text" ref={node => {Name = node;}} placeholder="Team Name" required />
         </div>
           <div className="input-container">
-             {/* <input id="domain" type="text" placeholder="Domain" required />  */}
             <select name="Domain" id="domain" ref={node => {domain = node;}}  required>
               <option value="Website">Website</option>
               <option value="Android">Android</option>

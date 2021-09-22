@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-//import './App.css';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
-import Flag from '../Assets/flag.png'
 import '../Styles/tasks.css'
 import FilterBar from './FilterBar';
 import moment from 'moment'
@@ -56,22 +54,6 @@ const Tasks = () => {
       return `${task.length + 2}ch`
       }
 
-    const  markAsComplete = (e)=>{
-      if (e.target.style.fill != '#6EFF3A'){
-        e.target.style.fill = '#6EFF3A'
-      }
-    }  
-
-    const deleteTask = (e) => {
-      e.nativeEvent.path[5].style.display = 'none'
-      console.log(e)
-    }
-
-    
-    
-
-
-
     return (
     
         <Query pollInterval={500} query={GET_TASKS}>
@@ -81,7 +63,7 @@ const Tasks = () => {
           
 
           const renderAuthButton = (abc) => {
-            if (abc==true) {
+            if (abc===true) {
               return <svg
               className="completedOption1"
               width="24"
