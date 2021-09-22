@@ -61,7 +61,7 @@ class AddMember extends Component {
                                 <input id="Mname" type="text" ref={node => {Mname = node;}} placeholder="Name"  required />
                               </div>
                               <div className="input-container">
-                              <input id="Emailid" type="text" ref={node => {Emailid = node;}} placeholder="Email ID"  required />
+                              <input id="Emailid" type="email" ref={node => {Emailid = node;}} placeholder="Email ID"  required />
                               </div>
                               <button style={{textDecoration: 'none', border:'none'}} type="submit" className="btn">ADD MEMBER</button>
                             </form>
