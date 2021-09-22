@@ -11,7 +11,7 @@ var GraphQLDate = require('graphql-date');
 var GraphQLBoolean = require('graphql').GraphQLBoolean;
 var TaskModel = require('../models/Task');
 var TeamModel = require('../models/Team');
-//var MemberModel = require('../models/member');
+
 
 
 var task = new GraphQLObjectType({
@@ -46,7 +46,7 @@ var task = new GraphQLObjectType({
     }
   });
 
-  var members=new GraphQLObjectType({
+var members=new GraphQLObjectType({
     name:'members',
     fields: function(){
       return{
@@ -63,7 +63,7 @@ var task = new GraphQLObjectType({
     }
   });
 
-  var membersInput=new GraphQLInputObjectType({
+var membersInput=new GraphQLInputObjectType({
     name:'membersInput',
     fields: function(){
       return{
@@ -80,7 +80,7 @@ var task = new GraphQLObjectType({
     }
   });
 
-  var team = new GraphQLObjectType({
+var team = new GraphQLObjectType({
     name: 'team',
     fields: function () {
       return {
